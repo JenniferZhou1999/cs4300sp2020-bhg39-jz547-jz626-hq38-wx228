@@ -36,3 +36,11 @@ border: none
 .step-links a{
 color: #4285F4;
 }
+
+.hide{
+display:none;
+}
+
+.show{
+display:block;
+}
