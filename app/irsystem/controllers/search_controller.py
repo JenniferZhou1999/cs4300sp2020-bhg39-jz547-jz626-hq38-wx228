@@ -23,7 +23,8 @@ def search():
 		output_message = ''
 	else:
 		output_message = "Your search: " + query
-		data = Shoe.query.filter(Shoe.brand == query_brand, Shoe.price >= prices[0], Shoe.price <= prices[1])
+		looking_for = '%{0}%'.format(query)
+		data = Shoe.query.filter(Shoe.brand == query_brand, Shoe.price >= prices[0], Shoe.price <= prices[1], Shoe.description.ilike(looking_for))
 		for shoe in data:
 			results.append((shoe.name, shoe.img_url, shoe.price))
 
