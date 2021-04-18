@@ -2,22 +2,36 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 import sqlalchemy as db
+from app.data_ingestion import Shoe
 
 project_name = "New kicks recommendation system"
 net_id = "'Weihang Xiao(wx228), Brandon Guo(bhg39), Jennifer Zhou(jz547),  Jesse Zhu(jz626),  Joy Qi(hq38)'"
 
 @irsystem.route('/', methods=['GET'])
 def search():
-	query = request.args.get('search')
-	if not query:
-		data = []
+	query = request.args.get('keywords')
+	query_brand = request.args.get('brand')
+	query_price = request.args.get('price')
+	if query_price:
+		prices = [int(query_price.split('-')[0]), int(query_price.split('-')[1])]
+	else:
+		prices = [0, float('inf')]
+	results = []
+	if query == "":
+		output_message = 'Search Cannot be Empty'
+	elif not query:
 		output_message = ''
 	else:
 		output_message = "Your search: " + query
-		data = range(5)
-	inputs = [Shoe("shoe1", 19.99, 3.5, 'black', 'description1', 'cotton', )]
+		data = Shoe.query.filter(Shoe.brand == query_brand, Shoe.price >= prices[0], Shoe.price <= prices[1])
+		for shoe in data:
+			results.append((shoe.name, shoe.img_url, shoe.price))
 
-	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+	print('Number returned results: ' + str(len(results)))
+	print(query)
+	print(output_message)
+	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=results[0:10])
+
 
 
 

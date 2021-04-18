@@ -46,7 +46,7 @@ class Review(db.Model):
 
 db.drop_all()
 db.create_all()
-with open('sneakers_page3.csv', mode='r') as csv_file:
+with open('sneakers_page3.csv', mode='r', encoding="utf8") as csv_file:
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
     for row in csv_reader:

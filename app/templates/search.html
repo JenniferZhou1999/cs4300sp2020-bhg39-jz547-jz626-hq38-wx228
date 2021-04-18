@@ -9,7 +9,7 @@
     </head>
     <body>
         <form class="form-inline global-search" style="font-family:'Raleway', sans-serif;">
-            <h1 style="display:block; font-size: 55px; font-family:'Raleway', sans-serif; color: #4285F4">
+            <h1 style="display:block; font-size: 55px; color: #4285F4">
                 Sole Mate Recommender
             </h1>
             <h2 style="display:block; font-size: 18px; font-family:'Raleway', sans-serif; color: #4285F4; margin-bottom: 30px">
@@ -26,12 +26,13 @@
                 <br>
                 <label for="brand">Brand</label>
                 <br>
-                <input id="brand" type="text" name="brand" class="form-control" placeholder="">
+                <input type="text" name="brand" class="form-control" placeholder="">
                 <br>
                 <br>
                 <label for="price">Choose a price range:</label>
                 <br>
                 <select name="price" id="price">
+                    <option value="none" selected disabled hidden>Select an Option</option>
                     <option value="0-50">$0 - $50</option>
                     <option value="50-100">$50 - $100</option>
                     <option value="100-200">$100 - $200</option>
@@ -48,11 +49,16 @@
             <button type="submit" class="btn btn-info"> Go! </button>
         </form>
         <form class="form-inline global-search">
+        <h1>{{output_message}}</h1>
         {% if data %}
-            <h1>{{output_message}}</h1>
             {% for d in data %}  
                 <br>
-                <p>{{d}}</p>
+                <h3>{{d[0]}}</h3>
+                <br>
+                <h4>${{d[2]}}</h4>
+                <br>
+                <br>
+                <img src="{{d[1]}}" alt="{{d[0]}}"/>
             {% endfor %}
         {% endif %}
         </form>
