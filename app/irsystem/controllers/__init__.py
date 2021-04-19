@@ -26,5 +26,5 @@ from app.irsystem import irsystem
 # Import module models
 from app.accounts.models.user import *
 from app.accounts.models.session import *
-# from app.shoes.models.shoe import *
-# from app.shoes.models.review import *
+from app.shoes.models.shoe import Shoe
+from app.shoes.models.review import Review

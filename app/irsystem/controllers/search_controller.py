@@ -2,8 +2,6 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 import sqlalchemy as db
-from app.data_ingestion import *
-# from app.shoes.models import Shoe
 
 project_name = "New kicks recommendation system"
 net_id = "'Weihang Xiao(wx228), Brandon Guo(bhg39), Jennifer Zhou(jz547),  Jesse Zhu(jz626),  Joy Qi(hq38)'"
