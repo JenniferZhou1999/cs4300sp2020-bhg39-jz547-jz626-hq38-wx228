@@ -1,7 +1,6 @@
 # Gevent needed for sockets
 from gevent import monkey
 monkey.patch_all()
-
 # Imports
 import os
 from flask import Flask, render_template

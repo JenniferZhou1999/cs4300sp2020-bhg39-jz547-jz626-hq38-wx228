@@ -13,86 +13,86 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://wcagxrxkxecdnc:893178f88b43d
 db = SQLAlchemy(app)
 
 
-class Shoe(db.Model):
-  __tablename__ = 'shoe'
-  id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(128), nullable =False)
-  price = db.Column(db.Float, nullable =False)
-  rating = db.Column(db.Float, nullable=False)
-  color = db.Column(db.String(128), nullable =False)
-  description = db.Column(db.String(512), nullable =False, max_length=512)
-  material = db.Column(db.String(128), nullable =False)
-  fit = db.Column(db.String(128), nullable =False)
-  brand = db.Column(db.String(128), nullable =False)
-  img_url = db.Column(db.String(512), nullable=False, max_length=512)
-  reviews = db.relationship('Review', backref='shoe', lazy=True)
+# class Shoe(db.Model):
+#   __tablename__ = 'shoe'
+#   id = db.Column(db.Integer, primary_key=True)
+#   name = db.Column(db.String(128), nullable =False)
+#   price = db.Column(db.Float, nullable =False)
+#   rating = db.Column(db.Float, nullable=False)
+#   color = db.Column(db.String(128), nullable =False)
+#   description = db.Column(db.String(512), nullable =False)
+#   material = db.Column(db.String(128), nullable =False)
+#   fit = db.Column(db.String(128), nullable =False)
+#   brand = db.Column(db.String(128), nullable =False)
+#   img_url = db.Column(db.String(512), nullable=False)
+#   reviews = db.relationship('Review', backref='shoe', lazy=True)
 
-  def __init__(self, **kwargs):
-    self.name = kwargs.get('name', None)
-    self.price = kwargs.get('price', None)
-    self.rating = kwargs.get('rating', None)
-    self.color = kwargs.get('color', None)
-    self.description = kwargs.get('description', None)
-    self.material = kwargs.get('material', None)
-    self.fit = kwargs.get('fit', None)
-    self.img_url = kwargs.get('img_url', None)
-    self.brand = kwargs.get('brand', None)
+#   def __init__(self, **kwargs):
+#     self.name = kwargs.get('name', None)
+#     self.price = kwargs.get('price', None)
+#     self.rating = kwargs.get('rating', None)
+#     self.color = kwargs.get('color', None)
+#     self.description = kwargs.get('description', None)
+#     self.material = kwargs.get('material', None)
+#     self.fit = kwargs.get('fit', None)
+#     self.img_url = kwargs.get('img_url', None)
+#     self.brand = kwargs.get('brand', None)
 
-class Review(db.Model):
-  __tablename__ = 'review'
-  id = db.Column(db.Integer, primary_key=True)
-  shoe_id = db.Column(db.Integer, db.ForeignKey('shoe.id'), nullable=False)
-  text = db.Column(db.String(512), nullable =False, max_length=512)
+# class Review(db.Model):
+#   __tablename__ = 'review'
+#   id = db.Column(db.Integer, primary_key=True)
+#   shoe_id = db.Column(db.Integer, db.ForeignKey('shoe.id'), nullable=False)
+#   text = db.Column(db.String(512), nullable =False)
 
-db.drop_all()
-db.create_all()
-with open('sneakers_page3.csv', mode='r', encoding="utf8") as csv_file:
-    csv_reader = csv.DictReader(csv_file)
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        else:
-            name = row['name']
-            if name == 'N/A': continue
-            # price = float(row['price'][1:]) if row['price'] != 'N/A' else 0
-            rating = float(row['rating']) if row['rating'] != 'N/A' else 0.0
-            color = row['color'] if row['color'] != 'N/A' else ""
-            description = row['description'][:512] if row['description'] != 'N/A' else ""
-            material = row['material'] if row['material'] != 'N/A' else ""
-            fit = row['fit'] if row['fit'] != 'N/A' else ""
-            brand = row['brand'] if row['brand'] != 'N/A' else ""
-            img_url = row['image'] if row['image'] != 'N/A' else ""
-            reviews = row['reviews'][:512] if row['reviews'] else ""
+# db.drop_all()
+# db.create_all()
+# with open('sneakers_page3.csv', mode='r', encoding="utf8") as csv_file:
+#     csv_reader = csv.DictReader(csv_file)
+#     line_count = 0
+#     for row in csv_reader:
+#         if line_count == 0:
+#             print(f'Column names are {", ".join(row)}')
+#             line_count += 1
+#         else:
+#             name = row['name']
+#             if name == 'N/A': continue
+#             # price = float(row['price'][1:]) if row['price'] != 'N/A' else 0
+#             rating = float(row['rating']) if row['rating'] != 'N/A' else 0.0
+#             color = row['color'] if row['color'] != 'N/A' else ""
+#             description = row['description'][:512] if row['description'] != 'N/A' else ""
+#             material = row['material'] if row['material'] != 'N/A' else ""
+#             fit = row['fit'] if row['fit'] != 'N/A' else ""
+#             brand = row['brand'] if row['brand'] != 'N/A' else ""
+#             img_url = row['image'] if row['image'] != 'N/A' else ""
+#             reviews = row['reviews'][:512] if row['reviews'] else ""
 
-            if ' – ' in row['price']: #handle case '$120.00 – $130.00'
-                  price = row['price'].split('.')[0][1:]
-                  price = float(price)
-            else:
-                  price = float(row['price'][1:]) if row['price'] != 'N/A' else 0
+#             if ' – ' in row['price']: #handle case '$120.00 – $130.00'
+#                   price = row['price'].split('.')[0][1:]
+#                   price = float(price)
+#             else:
+#                   price = float(row['price'][1:]) if row['price'] != 'N/A' else 0
 
-            shoe = Shoe(name=name, 
-                        price=price, 
-                        rating=rating, 
-                        color=color, 
-                        description=description, 
-                        material=material, 
-                        fit=fit, 
-                        brand=brand,
-                        img_url=img_url)
+#             shoe = Shoe(name=name, 
+#                         price=price, 
+#                         rating=rating, 
+#                         color=color, 
+#                         description=description, 
+#                         material=material, 
+#                         fit=fit, 
+#                         brand=brand,
+#                         img_url=img_url)
             
-            if reviews:
-                  reviews = reviews.split(";")
-                  for review_text in reviews:
-                        review = Review(text=review_text)
-                        shoe.reviews.append(review)
+#             if reviews:
+#                   reviews = reviews.split(";")
+#                   for review_text in reviews:
+#                         review = Review(text=review_text)
+#                         shoe.reviews.append(review)
             
-            db.session.add(shoe)
-            db.session.commit()
+#             db.session.add(shoe)
+#             db.session.commit()
             
-        line_count += 1
-    print(f'Processed {line_count} lines.')
+#         line_count += 1
+#     print(f'Processed {line_count} lines.')
 
 #name	price	rating	num_reviews	color	description	material	fit	reviews	brand
 
