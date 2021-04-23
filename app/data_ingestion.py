@@ -21,9 +21,9 @@ class Shoe(db.Model):
   rating = db.Column(db.Float, nullable=False)
   color = db.Column(db.String(128), nullable =False)
   description = db.Column(db.String(512), nullable =False)
-  material = db.Column(db.String(128), nullable =False)
-  fit = db.Column(db.String(128), nullable =False)
-  brand = db.Column(db.String(128), nullable =False)
+  material = db.Column(db.String(512), nullable =False)
+  fit = db.Column(db.String(512), nullable =False)
+  brand = db.Column(db.String(512), nullable =False)
   img_url = db.Column(db.String(512), nullable=False)
   reviews = db.relationship('Review', backref='shoe', lazy=True)
 
@@ -44,9 +44,9 @@ class Review(db.Model):
   shoe_id = db.Column(db.Integer, db.ForeignKey('shoe.id'), nullable=False)
   text = db.Column(db.String(512), nullable =False)
 
-db.drop_all()
-db.create_all()
-with open('sneakers_page3.csv', mode='r', encoding="utf8") as csv_file:
+# db.drop_all()
+# db.create_all()
+with open('sneakers_page1.csv', mode='r', encoding="utf8") as csv_file:
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
     for row in csv_reader:
