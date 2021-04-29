@@ -78,7 +78,7 @@ def perform_LSA_use_SVD(corpus, query):
     id_to_word = {id:word for id,word in enumerate(vocabulary)}
 
     U, s, VT = np.linalg.svd(tfidf_mat)
-    K = 20 #k topics
+    K = int(0.6*len(corpus)) #k topics
     print("K is: ", K)
 
     tfidf_mat_reduced = np.dot(U[:,:K], np.dot(np.diag(s[:K]), VT[:K, :]))
