@@ -31,22 +31,39 @@ def search():
         treebank_tokenizer = TreebankWordTokenizer()
         if query_brand:
             data = data.filter(Shoe.brand == query_brand)
+        
+
+        corpus = []
         for shoe in data:
-            des_toks = treebank_tokenizer.tokenize(shoe.description.lower())
+            # reviews = Review.query.filter(Review.shoe_id == shoe.id).all()
+            review = ""
+            # for r in reviews[:5]:
+            #     review += r.text.lower()
+            des_toks = treebank_tokenizer.tokenize(shoe.description.lower() + review)
             msgs.append({
                 'shoe_id': shoe.id,
                 'toks': des_toks
             })
-        inv_idx = build_inverted_index(msgs)
-        idf = compute_idf(inv_idx, len(msgs))
-        inv_idx = {key: val for key, val in inv_idx.items() if key in idf} 
-        doc_norms = compute_doc_norms(inv_idx, idf, len(msgs))
-        results = index_search(query, inv_idx, idf, doc_norms)
+            corpus.append(shoe.name.lower() + ", " + shoe.description.lower())
+        
+        res = perform_LSA_use_SVD(corpus, query)
+
+        for score, doc_id in res[:5]:
+            shoe = data.filter(Shoe.id == data[doc_id].id).first()
+            final_results.append((shoe.name, shoe.img_url, shoe.price, str(score)))
+
 
         
-        for score, doc_id in results[:5]:
-            shoe = data.filter(Shoe.id == msgs[doc_id]['shoe_id']).first()
-            final_results.append((shoe.name, shoe.img_url, shoe.price, str(score)))
+        # inv_idx = build_inverted_index(msgs)
+        # idf = compute_idf(inv_idx, len(msgs))
+        # inv_idx = {key: val for key, val in inv_idx.items() if key in idf} 
+        # doc_norms = compute_doc_norms(inv_idx, idf, len(msgs))
+        # results = index_search(query, inv_idx, idf, doc_norms)
+
+        
+        # for score, doc_id in results[:5]:
+        #     shoe = data.filter(Shoe.id == msgs[doc_id]['shoe_id']).first()
+        #     final_results.append((shoe.name, shoe.img_url, shoe.price, str(score)))
 
 		# keywords = query.split()
 		# for word in keywords:
