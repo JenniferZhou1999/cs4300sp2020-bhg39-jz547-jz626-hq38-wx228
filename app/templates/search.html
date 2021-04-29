@@ -8,47 +8,70 @@
         <script src="/static/utils.js" defer></script>
     </head>
     <body>
-        <form class="form-inline global-search" style="font-family:'Raleway', sans-serif;">
-            <h1 style="display:block; font-size: 55px; color: #4285F4">
-                Sole Mate Recommender
-            </h1>
-            <h2 style="display:block; font-size: 18px; font-family:'Raleway', sans-serif; color: #4285F4; margin-bottom: 30px">
-                To tech Sole Mate what you like, please fill out the inputs below.
-            </h2>
-            <div class="form-group">
-                <label for="keywords">Keywords</label>
+        <form class="form-inline global-search" style="font-family:'Raleway', sans-serif; background-image: url('/static/sneakerbackground.jpeg')">
+            <div style="background-color: rgba(255, 255, 255, 0.9); padding: 20px">
+                <h1 style="display:block; font-size: 55px; color: #4285F4">
+                    Sole Mate Recommender
+                </h1>
+                <h2 style="display:block; font-size: 18px; font-family:'Raleway', sans-serif; color: #4285F4; margin-bottom: 30px">
+                    To tech Sole Mate what you like, please fill out the inputs below.
+                </h2>
+                <div class="form-group">
+                    <label for="keywords">Keywords</label>
+                    <br>
+                    <input id="keywords" type="text" name="keywords" class="form-control" placeholder="">
+                    <br>
+                </div>
                 <br>
-                <input id="keywords" type="text" name="keywords" class="form-control" placeholder="">
+                <div class="advanced" style="display:none">
+                    <br>
+                    <label for="brand">Choose a brand:</label>
+                    <br>
+                    <select name="brand" id="brand">
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                        <option value="Vans">Vans</option>
+                        <option value="Zig Zag Goods LLC">Zig Zag Goods LLC</option>
+                        <option value="New Balance"> New Balance</option>
+                        <option value="Gola">Gola</option>
+                        <option value="adidas">Adidas</option>
+                        <option value="Buffalo">Buffalo</option>
+                        <option value="Puma">Puma</option>
+                        <option value="Reebok">Reebok</option>
+                        <option value="Converse">Converse</option>
+                        <option value="Camper">Camper</option>
+                        <option value="Saucony">Saucony</option>
+                        <option value="Vagabond Shoemakers">Vagabond Shoemakers</option>
+                        <option value="Karhu">Karhu</option>
+                        <option value="Reproduction Of Found">Reproduction Of Found</option>
+                        <option value="Onitsuka Tiger">Onitsuka Tiger</option>
+                        <option value="HOKA ONE ONE®">HOKA ONE ONE®</option>
+                        <option value="Nike">Nike</option>
+                        <option value="FILA">FILA</option>
+                        <option value="Salomon">Salomon</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="price">Choose a price range:</label>
+                    <br>
+                    <select name="price" id="price">
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                        <option value="0-50">$0 - $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100-200">$100 - $200</option>
+                        <option value="200-500">$200 - $500</option>
+                        <option value="500">$500</option>
+                    </select>
+                    <br>
+                    <br>
+                </div>
                 <br>
+                <button type="button" id="advanced-button"> Advanced Search </button>
+                <br> 
+                <br>
+                <button type="submit" class="btn btn-info"> Go! </button>
             </div>
-            <br>
-            <div class="advanced" style="display:none">
-                <br>
-                <label for="brand">Brand</label>
-                <br>
-                <input type="text" name="brand" class="form-control" placeholder="">
-                <br>
-                <br>
-                <label for="price">Choose a price range:</label>
-                <br>
-                <select name="price" id="price">
-                    <option value="none" selected disabled hidden>Select an Option</option>
-                    <option value="0-50">$0 - $50</option>
-                    <option value="50-100">$50 - $100</option>
-                    <option value="100-200">$100 - $200</option>
-                    <option value="200-500">$200 - $500</option>
-                    <option value="500">$500</option>
-                </select>
-                <br>
-                <br>
-            </div>
-            <br>
-            <button type="button" id="advanced-button"> Advanced Search </button>
-            <br> 
-            <br>
-            <button type="submit" class="btn btn-info"> Go! </button>
         </form>
-        <form class="form-inline global-search">
+        <div class="search-results">
         <h1>{{output_message}}</h1>
         {% if data %}
             {% for d in data %}  
@@ -62,7 +85,7 @@
                 <img src="{{d[1]}}" alt="{{d[0]}}"/>
             {% endfor %}
         {% endif %}
-        </form>
+        </div>
     </body>
 
 </html>
