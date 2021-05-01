@@ -48,7 +48,7 @@ def search():
         
         res = perform_LSA_use_SVD(corpus, query)
 
-        for score, doc_id in res[:5]:
+        for score, doc_id in res[:10]:
             shoe = data.filter(Shoe.id == data[doc_id].id).first()
             final_results.append((shoe.name, shoe.img_url, shoe.price, str(score)))
 
