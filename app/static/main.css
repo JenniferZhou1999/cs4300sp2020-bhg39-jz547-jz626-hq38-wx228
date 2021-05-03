@@ -24,6 +24,10 @@ width:500px;
 display:inline-block;
 margin-bottom:0;
 }
+.results{
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+}
 .search-results {
 padding: 20px 0;
 text-align:center;

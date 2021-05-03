@@ -72,19 +72,23 @@
             </div>
         </form>
         <div class="search-results">
-        <h1>{{output_message}}</h1>
-        {% if data %}
-            {% for d in data %}  
-                <br>
-                <h3>{{d[0]}}</h3>
-                <br>
-                <h4>${{d[2]}}</h4>
-                <br>
-                <h4>{{d[3]}}</h4>
-                <br>
-                <img src="{{d[1]}}" alt="{{d[0]}}"/>
-            {% endfor %}
-        {% endif %}
+            <h1>{{output_message}}</h1>
+            <div class="results">
+                {% if data %}
+                    {% for d in data %}  
+                        <div class="result">
+                            <br>
+                            <h3>{{d[0]}}</h3>
+                            <br>
+                            <h4>${{d[2]}}</h4>
+                            <br>
+                            <h4>{{d[3]}}</h4>
+                            <br>
+                            <img src="{{d[1]}}" alt="{{d[0]}}"/>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </body>
 
