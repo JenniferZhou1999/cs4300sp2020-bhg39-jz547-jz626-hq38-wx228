@@ -25,6 +25,7 @@ class Shoe(db.Model):
   fit = db.Column(db.String(512), nullable =False)
   brand = db.Column(db.String(512), nullable =False)
   img_url = db.Column(db.String(512), nullable=False)
+  link_url = db.Column(db.String(512), nullable=False)
   reviews = db.relationship('Review', backref='shoe', lazy=True)
 
   def __init__(self, **kwargs):
@@ -36,6 +37,7 @@ class Shoe(db.Model):
     self.material = kwargs.get('material', None)
     self.fit = kwargs.get('fit', None)
     self.img_url = kwargs.get('img_url', None)
+    self.link_url = kwargs.get('link_url', None)
     self.brand = kwargs.get('brand', None)
 
 class Review(db.Model):
@@ -64,6 +66,7 @@ with open('sneakers_page1.csv', mode='r', encoding="utf8") as csv_file:
             fit = row['fit'] if row['fit'] != 'N/A' else ""
             brand = row['brand'] if row['brand'] != 'N/A' else ""
             img_url = row['image'] if row['image'] != 'N/A' else ""
+            link_url = row['link'] if row['link'] != 'N/A' else ""
             reviews = row['reviews'][:512] if row['reviews'] else ""
 
             if ' – ' in row['price']: #handle case '$120.00 – $130.00'
@@ -80,7 +83,8 @@ with open('sneakers_page1.csv', mode='r', encoding="utf8") as csv_file:
                         material=material, 
                         fit=fit, 
                         brand=brand,
-                        img_url=img_url)
+                        img_url=img_url,
+                        link_url=link_url)
             
             if reviews:
                   reviews = reviews.split(";")

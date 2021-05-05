@@ -50,7 +50,7 @@ def search():
 
         for score, doc_id in res[:10]:
             shoe = data.filter(Shoe.id == data[doc_id].id).first()
-            final_results.append((shoe.name, shoe.img_url, shoe.price, str(score), shoe.img_url))
+            final_results.append((shoe.name, shoe.img_url, shoe.price, str(score), shoe.link_url))
 
 
         
@@ -74,6 +74,7 @@ def search():
 
 		# for shoe in data:
 		# 	results.append((shoe.name, shoe.img_url, shoe.price))
+
 
     print('Number returned results: ' + str(len(final_results)))
     print(query)

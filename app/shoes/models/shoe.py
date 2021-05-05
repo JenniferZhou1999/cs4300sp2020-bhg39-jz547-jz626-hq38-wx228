@@ -12,6 +12,7 @@ class Shoe(db.Model):
   fit = db.Column(db.String(128), nullable =False)
   brand = db.Column(db.String(128), nullable =False)
   img_url = db.Column(db.String(512), nullable=False)
+  link_url = db.Column(db.String(512), nullable=False)
   reviews = db.relationship('Review', backref='shoe', lazy=True)
 
   def __init__(self, **kwargs):
@@ -23,6 +24,7 @@ class Shoe(db.Model):
     self.material = kwargs.get('material', None)
     self.fit = kwargs.get('fit', None)
     self.img_url = kwargs.get('img_url', None)
+    self.link_url = kwargs.get('link_url', None)
     self.brand = kwargs.get('brand', None)
 
 
