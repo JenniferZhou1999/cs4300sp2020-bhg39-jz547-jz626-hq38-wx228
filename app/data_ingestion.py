@@ -8,7 +8,7 @@ import csv
 
 app = Flask(__name__)
 # app.config.from_object(os.environ["APP_SETTINGS"])
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://wcagxrxkxecdnc:893178f88b43d944efb35e054a7f07281acb3edfc42a185aa4b53f1a447d83e0@ec2-18-206-20-102.compute-1.amazonaws.com:5432/d8kj6e91df3a2r'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://uzyyhuumqhalfm:2994b84d6dba89458d2d7d39f643836a0d53e6ac7ecbd2598f064af231852544@ec2-3-234-85-177.compute-1.amazonaws.com:5432/d62memcclbej4u'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
@@ -48,7 +48,7 @@ class Review(db.Model):
 
 # db.drop_all()
 # db.create_all()
-with open('sneakers_page1.csv', mode='r', encoding="utf8") as csv_file:
+with open('sneakers_page4-1.csv', mode='r', encoding="utf8") as csv_file:
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
     for row in csv_reader:
