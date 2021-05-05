@@ -31,6 +31,9 @@ def search():
         treebank_tokenizer = TreebankWordTokenizer()
         if query_brand:
             data = data.filter(Shoe.brand == query_brand)
+        if not data:
+            output_message = 'No Search results'
+            return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=final_results[0:10])
         
 
         corpus = []
@@ -45,7 +48,10 @@ def search():
                 'toks': des_toks
             })
             corpus.append(shoe.name.lower() + ", " + shoe.description.lower())
-        
+        if not corpus:
+            output_message = 'No Search results'
+            return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=final_results[0:10])
+
         res = perform_LSA_use_SVD(corpus, query)
 
         for score, doc_id in res[:10]:
